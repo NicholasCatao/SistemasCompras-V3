@@ -15,8 +15,11 @@ namespace SistemaCompra.Domain.ProdutoAggregate
 
         public Situacao Situacao { get; set; }
 
-        private Produto(){}
 
+        public Produto()
+        {
+            
+        }
         public Produto(string nome, string descricao, string categoria, decimal preco)
         {
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));

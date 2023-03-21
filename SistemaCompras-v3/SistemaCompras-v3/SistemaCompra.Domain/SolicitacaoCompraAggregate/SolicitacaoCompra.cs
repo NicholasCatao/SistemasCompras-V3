@@ -1,8 +1,11 @@
-﻿using SistemaCompra.Domain.Core.Model;
+﻿using SistemaCompra.Domain.Core;
+using SistemaCompra.Domain.Core.Model;
 using SistemaCompra.Domain.ProdutoAggregate;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
@@ -16,7 +19,9 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public Guid FornecedorId { get;  set; }
         public IList<Item> Itens { get;  set; }
         public DateTime Data { get;  private set; }
+
         public Money TotalGeral { get; private set; }
+        public Guid TotalGeralId { get; private set; }
         public Situacao Situacao { get;  set; }
 
         public CondicaoPagamento CondicaoPagamento { get; set; }
@@ -47,7 +52,12 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public void RegistrarCompra(IEnumerable<Item> itens)
         {
-           
+            if (itens is null || itens.Count() == 0) throw new BusinessRuleException("A solicitação de compra deve possuir itens!");
+        }
+
+        public void AdicionarTotalGeral(decimal valor)
+        {
+            TotalGeral = new Money(valor);
         }
     }
 }

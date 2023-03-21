@@ -1,17 +1,17 @@
-﻿using MediatR;
+﻿using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using System.Threading.Tasks;
-using System;
+using SistemaCompra.API.Controllers.Base;
 using SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra;
-using FluentValidation.AspNetCore;
 using SistemaCompra.Application.Validadores;
+using System;
+using System.Threading.Tasks;
 
 namespace SistemaCompra.API.Controllers.SolicitacaoCompra
 {
     [ApiController]
-    public class SolicitacaoCompraController : Controller
+    public class SolicitacaoCompraController : BaseController
     {
         private readonly IMediator _mediator;
 
@@ -31,9 +31,6 @@ namespace SistemaCompra.API.Controllers.SolicitacaoCompra
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(string))]
         public async Task<IActionResult> RegistraCompraAsync([FromBody, CustomizeValidator(RuleSet = ValidationRules.Incluir)] RegistrarCompraCommand request)
-        {
-            var response = await _mediator.Send(request);
-            return Ok(response);
-        }
+           => GetResponse(await _mediator.Send(request));
     }
 }
