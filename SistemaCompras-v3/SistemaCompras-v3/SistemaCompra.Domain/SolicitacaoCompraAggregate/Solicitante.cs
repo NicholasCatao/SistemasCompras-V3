@@ -8,22 +8,21 @@ using System.Text;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class UsuarioSolicitante : ValueObject<UsuarioSolicitante>
+    public class Solicitante : ValueObject<Solicitante>
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         [Required] 
-        public string Nome { get; }
-
+        public string Nome { get; set; }
+    
         public ICollection<SolicitacaoCompra> SolicitacaoCompras { get; set; }
       
-
-        public UsuarioSolicitante()
+        public Solicitante()
         {
             SolicitacaoCompras = new Collection<SolicitacaoCompra>();
         }
-        public UsuarioSolicitante(string nome)
+        public Solicitante(string nome)
         {
             if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentNullException(nameof(nome));
             if (nome.Length < 5) throw new BusinessRuleException("Nome de usuário deve possuir pelo menos 8 caracteres.");

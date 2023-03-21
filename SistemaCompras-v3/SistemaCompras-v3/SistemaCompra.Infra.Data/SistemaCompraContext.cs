@@ -22,7 +22,8 @@ namespace SistemaCompra.Infra.Data
 
         public DbSet<ProdutoAgg.Produto> Produtos { get; set; }
         public DbSet<SolicitacaoAgg.SolicitacaoCompra> SolicitacaoCompra { get; set; }
-        public DbSet<UsuarioSolicitante> UsuarioSolicitante { get; set; }
+        public DbSet<Fornecedor> Fornecedor { get; set; }
+        public DbSet<Solicitante> Solicitante { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

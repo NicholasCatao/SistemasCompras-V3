@@ -13,10 +13,10 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
-        public UsuarioSolicitante UsuarioSolicitante { get; set; }
-        public Guid UsuarioSolicitanteId { get; set; }
-        public NomeFornecedor NomeFornecedor { get;  set; }
-        public Guid NomeFornecedorId { get;  set; }
+        public Solicitante Solicitante { get; set; }
+        public Guid SolicitanteId { get; set; }
+        public Fornecedor Fornecedor { get;  set; }
+        public Guid FornecedorId { get;  set; }
         public IList<Item> Itens { get;  set; }
         public DateTime Data { get;  private set; }
         public Money TotalGeral { get; private set; }
@@ -29,16 +29,16 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
        
         public SolicitacaoCompra(string usuarioSolicitante, string nomeFornecedor, IList<Item> Itens)
         {
-            UsuarioSolicitante = new UsuarioSolicitante(usuarioSolicitante);
-            NomeFornecedor = new NomeFornecedor(nomeFornecedor);
+            Solicitante =  new Solicitante(usuarioSolicitante);
+            Fornecedor = new Fornecedor(nomeFornecedor);
             Data = DateTime.Now;
             Situacao = Situacao.Solicitado;
         }
 
         public SolicitacaoCompra(string usuarioSolicitante, string nomeFornecedor)
         {
-            UsuarioSolicitante = new UsuarioSolicitante(usuarioSolicitante);
-            NomeFornecedor = new NomeFornecedor(nomeFornecedor);
+            Solicitante = new Solicitante(usuarioSolicitante);
+            Fornecedor = new Fornecedor(nomeFornecedor);
             Data = DateTime.Now;
             Situacao = Situacao.Solicitado;
         }
