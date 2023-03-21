@@ -4,12 +4,15 @@ using SistemaCompra.Domain.ProdutoAggregate;
 using SistemaCompra.Domain.SolicitacaoCompraAggregate.Events;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
     public class SolicitacaoCompra : Entity
     {
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
         public UsuarioSolicitante UsuarioSolicitante { get; set; }
         public NomeFornecedor NomeFornecedor { get;  set; }
         public IList<Item> Itens { get;  set; }
@@ -23,7 +26,6 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public SolicitacaoCompra(string usuarioSolicitante, string nomeFornecedor, IList<Item> Itens)
         {
-            Id = Guid.NewGuid();
             UsuarioSolicitante = new UsuarioSolicitante(usuarioSolicitante);
             NomeFornecedor = new NomeFornecedor(nomeFornecedor);
             Data = DateTime.Now;
@@ -32,7 +34,6 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public SolicitacaoCompra(string usuarioSolicitante, string nomeFornecedor)
         {
-            Id = Guid.NewGuid();
             UsuarioSolicitante = new UsuarioSolicitante(usuarioSolicitante);
             NomeFornecedor = new NomeFornecedor(nomeFornecedor);
             Data = DateTime.Now;

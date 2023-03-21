@@ -2,12 +2,15 @@
 using SistemaCompra.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
     public class UsuarioSolicitante : ValueObject<UsuarioSolicitante>
     {
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Nome { get; }
 
         private UsuarioSolicitante() { }

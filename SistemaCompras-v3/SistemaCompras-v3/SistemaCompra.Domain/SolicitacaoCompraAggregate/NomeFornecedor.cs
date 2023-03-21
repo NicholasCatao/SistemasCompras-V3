@@ -1,12 +1,15 @@
 ﻿using SistemaCompra.Domain.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
     public class NomeFornecedor
     {
+        [Key]
+        public Guid Id { get; set; }
         public string Nome { get; }
 
         private NomeFornecedor() { }

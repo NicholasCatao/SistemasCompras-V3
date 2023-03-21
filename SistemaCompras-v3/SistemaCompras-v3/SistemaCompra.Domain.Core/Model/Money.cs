@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace SistemaCompra.Domain.Core.Model
 {
     public class Money : ValueObject<Money>
     {
+        [Key]
+        public Guid Id { get; set; }
         public readonly decimal Value;
 
         public Money()
