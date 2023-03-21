@@ -5,7 +5,7 @@ using SistemaCompra.Application.Produto.Command.RegistrarProduto;
 using SistemaCompra.Application.Produto.Query.ObterProduto;
 using System;
 
-namespace SistemaCompra.API.Produto
+namespace SistemaCompra.API.Controllers.Produto
 {
     public class ProdutoController : ControllerBase
     {
@@ -13,7 +13,7 @@ namespace SistemaCompra.API.Produto
 
         public ProdutoController(IMediator mediator)
         {
-            this._mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet, Route("produto/{id}")]
@@ -42,7 +42,7 @@ namespace SistemaCompra.API.Produto
         [ProducesResponseType(500)]
         public IActionResult AtualizarPreco([FromBody] AtualizarPrecoCommand atualizarPrecoCommand)
         {
-             _mediator.Send(atualizarPrecoCommand);
+            _mediator.Send(atualizarPrecoCommand);
             return Ok();
 
         }
