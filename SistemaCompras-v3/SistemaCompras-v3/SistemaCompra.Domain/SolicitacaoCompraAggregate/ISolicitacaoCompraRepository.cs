@@ -1,7 +1,9 @@
-﻿namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
+﻿using System.Threading.Tasks;
+
+namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
     public interface ISolicitacaoCompraRepository
     {
-        void RegistrarCompra(SolicitacaoCompra solicitacaoCompra);
+        Task RegistrarCompraAsync(SolicitacaoCompra solicitacaoCompra);
     }
 }

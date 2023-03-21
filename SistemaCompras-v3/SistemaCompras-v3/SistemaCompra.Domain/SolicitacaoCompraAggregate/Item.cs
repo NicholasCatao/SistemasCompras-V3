@@ -1,17 +1,16 @@
 ﻿using SistemaCompra.Domain.Core.Model;
 using SistemaCompra.Domain.ProdutoAggregate;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
     public class Item : Entity
     {
+        public Guid Id { get; } = Guid.NewGuid();
         public Produto Produto { get; set; }
         public int Qtde { get; set; }
 
-        public Money Subtotal => ObterSubtotal();
+        public Dinheiro Subtotal => ObterSubtotal();
 
         public Item(Produto produto, int qtde)
         {
@@ -19,9 +18,9 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
             Qtde = qtde;
         }
 
-        private Money ObterSubtotal()
+        private Dinheiro ObterSubtotal()
         {
-            return new Money(Produto.Preco.Value * Qtde);
+            return new Dinheiro(Produto.Preco * Qtde);
         }
 
         private Item() { }

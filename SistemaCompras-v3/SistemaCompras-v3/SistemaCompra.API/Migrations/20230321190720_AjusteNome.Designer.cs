@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaCompra.Infra.Data;
 
 namespace SistemaCompra.API.Migrations
 {
     [DbContext(typeof(SistemaCompraContext))]
-    partial class SistemaCompraContextModelSnapshot : ModelSnapshot
+    [Migration("20230321190720_AjusteNome")]
+    partial class AjusteNome
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,21 +21,15 @@ namespace SistemaCompra.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SistemaCompra.Domain.Core.Model.Dinheiro", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.Core.Model.Money", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Moeda")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Dinheiro");
+                    b.ToTable("Money");
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.ProdutoAggregate.Produto", b =>
@@ -196,7 +192,7 @@ namespace SistemaCompra.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaCompra.Domain.Core.Model.Dinheiro", "TotalGeral")
+                    b.HasOne("SistemaCompra.Domain.Core.Model.Money", "TotalGeral")
                         .WithMany()
                         .HasForeignKey("TotalGeralId");
                 });

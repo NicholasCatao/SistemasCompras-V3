@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaCompra.Infra.Data;
 
 namespace SistemaCompra.API.Migrations
 {
     [DbContext(typeof(SistemaCompraContext))]
-    partial class SistemaCompraContextModelSnapshot : ModelSnapshot
+    [Migration("20230321174207_AjusteMigration")]
+    partial class AjusteMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,21 +21,15 @@ namespace SistemaCompra.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SistemaCompra.Domain.Core.Model.Dinheiro", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.Core.Model.Money", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Moeda")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Dinheiro");
+                    b.ToTable("Money");
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.ProdutoAggregate.Produto", b =>
@@ -76,21 +72,6 @@ namespace SistemaCompra.API.Migrations
                     b.ToTable("CondicaoPagamento");
                 });
 
-            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.Fornecedor", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Fornecedor");
-                });
-
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.Item", b =>
                 {
                     b.Property<Guid>("Id")
@@ -115,6 +96,17 @@ namespace SistemaCompra.API.Migrations
                     b.ToTable("Item");
                 });
 
+            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.NomeFornecedor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NomeFornecedor");
+                });
+
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.SolicitacaoCompra", b =>
                 {
                     b.Property<Guid>("Id")
@@ -127,44 +119,40 @@ namespace SistemaCompra.API.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FornecedorId")
+                    b.Property<Guid>("NomeFornecedorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Situacao")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("SolicitanteId")
+                    b.Property<Guid?>("TotalGeralId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("TotalGeralId")
+                    b.Property<Guid>("UsuarioSolicitanteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CondicaoPagamentoId");
 
-                    b.HasIndex("FornecedorId");
-
-                    b.HasIndex("SolicitanteId");
+                    b.HasIndex("NomeFornecedorId");
 
                     b.HasIndex("TotalGeralId");
+
+                    b.HasIndex("UsuarioSolicitanteId");
 
                     b.ToTable("SolicitacaoCompra");
                 });
 
-            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.Solicitante", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.UsuarioSolicitante", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Solicitante");
+                    b.ToTable("UsuarioSolicitante");
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.Item", b =>
@@ -184,21 +172,21 @@ namespace SistemaCompra.API.Migrations
                         .WithMany()
                         .HasForeignKey("CondicaoPagamentoId");
 
-                    b.HasOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.Fornecedor", "Fornecedor")
+                    b.HasOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.NomeFornecedor", "NomeFornecedor")
                         .WithMany("SolicitacaoCompras")
-                        .HasForeignKey("FornecedorId")
+                        .HasForeignKey("NomeFornecedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.Solicitante", "Solicitante")
-                        .WithMany("SolicitacaoCompras")
-                        .HasForeignKey("SolicitanteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SistemaCompra.Domain.Core.Model.Dinheiro", "TotalGeral")
+                    b.HasOne("SistemaCompra.Domain.Core.Model.Money", "TotalGeral")
                         .WithMany()
                         .HasForeignKey("TotalGeralId");
+
+                    b.HasOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.UsuarioSolicitante", "UsuarioSolicitante")
+                        .WithMany("SolicitacaoCompras")
+                        .HasForeignKey("UsuarioSolicitanteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

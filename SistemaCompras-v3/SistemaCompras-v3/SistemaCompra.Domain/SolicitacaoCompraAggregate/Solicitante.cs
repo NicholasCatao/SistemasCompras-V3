@@ -2,17 +2,26 @@
 using SistemaCompra.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class UsuarioSolicitante : ValueObject<UsuarioSolicitante>
+    public class Solicitante : ValueObject<Solicitante>
     {
-        public string Nome { get; }
+        [Key]
+        public Guid Id { get; set; }
 
-        private UsuarioSolicitante() { }
-
-        public UsuarioSolicitante(string nome)
+        [Required] 
+        public string Nome { get; set; }
+    
+        public ICollection<SolicitacaoCompra> SolicitacaoCompras { get; set; }
+      
+        public Solicitante()
+        {
+            SolicitacaoCompras = new Collection<SolicitacaoCompra>();
+        }
+        public Solicitante(string nome)
         {
             if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentNullException(nameof(nome));
             if (nome.Length < 5) throw new BusinessRuleException("Nome de usuário deve possuir pelo menos 8 caracteres.");
