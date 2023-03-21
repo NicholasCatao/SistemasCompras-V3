@@ -28,6 +28,8 @@ namespace SistemaCompra.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<SistemaCompraContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); possibilidade de uso via DI
+
             services.AddControllers();
             var assembly = AppDomain.CurrentDomain.Load("SistemaCompra.Application");
             services.AddMediatR(assembly);
