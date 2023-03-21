@@ -19,6 +19,7 @@ namespace SistemaCompra.Infra.Data
             _ConnectionStringSqlServer = configuration.GetConnectionString("DefaultConnection");
         }
         public DbSet<ProdutoAgg.Produto> Produtos { get; set; }
+        public DbSet<SolicitacaoAgg.SolicitacaoCompra> SolicitacaoCompra { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

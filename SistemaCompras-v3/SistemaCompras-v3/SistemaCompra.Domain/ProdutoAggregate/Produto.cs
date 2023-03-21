@@ -9,7 +9,7 @@ namespace SistemaCompra.Domain.ProdutoAggregate
     {
         public Guid Id { get; } = Guid.NewGuid();
         public Categoria Categoria { get;  set; }
-        public Money Preco { get;  set; }
+        public decimal Preco { get;  set; }
         public string Descricao { get; set; }
         public string Nome { get; set; }
 
@@ -21,7 +21,7 @@ namespace SistemaCompra.Domain.ProdutoAggregate
         {
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));
             Descricao = descricao ?? throw new ArgumentNullException(nameof(descricao));
-            Preco = new Money(preco);
+            Preco = preco;
             Categoria = (Categoria) Enum.Parse(typeof(Categoria), categoria);
             Situacao = Situacao.Ativo;
         }
@@ -40,9 +40,7 @@ namespace SistemaCompra.Domain.ProdutoAggregate
         {
             if (Situacao != Situacao.Ativo) throw new BusinessRuleException("Produto deve estar ativo!");
 
-            Preco = new Money(preco);
-
-            AddEvent(new PrecoAtualizadoEvent(Id, Preco.Value));
+            AddEvent(new PrecoAtualizadoEvent(Id, preco));
         }
     }
 }

@@ -21,6 +21,7 @@ namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
             var solicitacao = new SolicitacaoAgg.SolicitacaoCompra(request.UsuarioSolicitante, request.NomeFornecedor, request.Itens);
 
 
+
             await _solicitacaoCompraRepository.RegistrarCompraAsync(solicitacao);
 
             Commit();
