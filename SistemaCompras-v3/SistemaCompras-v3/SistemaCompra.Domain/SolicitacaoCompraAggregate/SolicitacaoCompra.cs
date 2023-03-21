@@ -19,9 +19,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public Guid FornecedorId { get;  set; }
         public IList<Item> Itens { get;  set; }
         public DateTime Data { get;  private set; }
-
-        public Money TotalGeral { get; private set; }
-        public Guid TotalGeralId { get; private set; }
+        public Dinheiro TotalGeral { get; private set; }
         public Situacao Situacao { get;  set; }
 
         public CondicaoPagamento CondicaoPagamento { get; set; }
@@ -57,7 +55,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public void AdicionarTotalGeral(decimal valor)
         {
-            TotalGeral = new Money(valor);
+            TotalGeral = new Dinheiro(valor);
         }
     }
 }

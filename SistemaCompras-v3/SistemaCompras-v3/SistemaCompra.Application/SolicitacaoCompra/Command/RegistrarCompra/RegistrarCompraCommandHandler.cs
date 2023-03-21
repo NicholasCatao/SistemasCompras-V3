@@ -34,9 +34,9 @@ namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
                     Situacao = item.Produto.Situacao
                 };
 
-                solicitacao.AdicionarTotalGeral(item.Subtotal.Value);
+                solicitacao.AdicionarTotalGeral(item.Subtotal.Valor);
 
-                if (item.Subtotal.Value > 5000m) solicitacao.CondicaoPagamento = new CondicaoPagamento(30);
+                if (item.Subtotal.Valor > 5000m) solicitacao.CondicaoPagamento = new CondicaoPagamento(30);
             }
 
             await _solicitacaoCompraRepository.RegistrarCompraAsync(solicitacao);

@@ -10,7 +10,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public Produto Produto { get; set; }
         public int Qtde { get; set; }
 
-        public Money Subtotal => ObterSubtotal();
+        public Dinheiro Subtotal => ObterSubtotal();
 
         public Item(Produto produto, int qtde)
         {
@@ -18,9 +18,9 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
             Qtde = qtde;
         }
 
-        private Money ObterSubtotal()
+        private Dinheiro ObterSubtotal()
         {
-            return new Money(Produto.Preco * Qtde);
+            return new Dinheiro(Produto.Preco * Qtde);
         }
 
         private Item() { }
