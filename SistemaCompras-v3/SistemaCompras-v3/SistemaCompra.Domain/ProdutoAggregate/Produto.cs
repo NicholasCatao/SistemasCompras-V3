@@ -7,18 +7,18 @@ namespace SistemaCompra.Domain.ProdutoAggregate
 {
     public class Produto : Entity
     {
-        public Categoria Categoria { get; private set; }
-        public Money Preco { get; private set; }
-        public string Descricao { get; private set; }
-        public string Nome { get; private set; }
+        public Guid Id { get; } = Guid.NewGuid();
+        public Categoria Categoria { get;  set; }
+        public Money Preco { get;  set; }
+        public string Descricao { get; set; }
+        public string Nome { get; set; }
 
-        public Situacao Situacao { get; private set; }
+        public Situacao Situacao { get; set; }
 
         private Produto(){}
 
         public Produto(string nome, string descricao, string categoria, decimal preco)
         {
-            Id = Guid.NewGuid();
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));
             Descricao = descricao ?? throw new ArgumentNullException(nameof(descricao));
             Preco = new Money(preco);

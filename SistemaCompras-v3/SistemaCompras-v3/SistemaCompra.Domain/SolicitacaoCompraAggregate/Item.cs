@@ -8,6 +8,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
     public class Item : Entity
     {
+        public Guid Id { get; } = Guid.NewGuid();
         public Produto Produto { get; set; }
         public int Qtde { get; set; }
 
