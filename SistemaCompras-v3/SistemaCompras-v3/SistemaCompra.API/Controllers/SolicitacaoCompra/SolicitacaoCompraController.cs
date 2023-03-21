@@ -25,7 +25,7 @@ namespace SistemaCompra.API.Controllers.SolicitacaoCompra
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost("solicitacao")]
+        [HttpPost("solicitacao/compra")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]

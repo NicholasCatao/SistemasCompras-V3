@@ -1,18 +1,27 @@
 ﻿using SistemaCompra.Domain.Core;
+using SistemaCompra.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class NomeFornecedor
+    public class NomeFornecedor: Entity
     {
         [Key]
         public Guid Id { get; set; }
+
+        [Required]
         public string Nome { get; }
 
-        private NomeFornecedor() { }
+        public ICollection<SolicitacaoCompra> SolicitacaoCompras { get; set; }
+
+        public NomeFornecedor() 
+        {
+            SolicitacaoCompras = new Collection<SolicitacaoCompra>();
+        }
 
         public NomeFornecedor(string nome)
         {

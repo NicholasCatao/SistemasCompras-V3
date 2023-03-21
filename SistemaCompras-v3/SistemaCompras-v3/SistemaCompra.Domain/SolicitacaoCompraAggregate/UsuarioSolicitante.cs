@@ -2,6 +2,7 @@
 using SistemaCompra.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -11,10 +12,17 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
+
+        [Required] 
         public string Nome { get; }
 
-        private UsuarioSolicitante() { }
+        public ICollection<SolicitacaoCompra> SolicitacaoCompras { get; set; }
+      
 
+        public UsuarioSolicitante()
+        {
+            SolicitacaoCompras = new Collection<SolicitacaoCompra>();
+        }
         public UsuarioSolicitante(string nome)
         {
             if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentNullException(nameof(nome));

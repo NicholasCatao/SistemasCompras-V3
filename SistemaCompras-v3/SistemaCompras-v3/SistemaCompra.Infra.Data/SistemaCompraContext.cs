@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SistemaCompra.Domain.Core;
+using SistemaCompra.Domain.SolicitacaoCompraAggregate;
 using SistemaCompra.Infra.Data.Produto;
 using ProdutoAgg = SistemaCompra.Domain.ProdutoAggregate;
 using SolicitacaoAgg = SistemaCompra.Domain.SolicitacaoCompraAggregate;
@@ -18,12 +19,13 @@ namespace SistemaCompra.Infra.Data
         {
             _ConnectionStringSqlServer = configuration.GetConnectionString("DefaultConnection");
         }
+
         public DbSet<ProdutoAgg.Produto> Produtos { get; set; }
         public DbSet<SolicitacaoAgg.SolicitacaoCompra> SolicitacaoCompra { get; set; }
+        public DbSet<UsuarioSolicitante> UsuarioSolicitante { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
